@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1029752056323",
+    "firebase_url": "https://pointrunner-1493813390627.firebaseio.com",
+    "project_id": "pointrunner-1493813390627",
+    "storage_bucket": "pointrunner-1493813390627.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029752056323:android:db7fbbecd6211db6",
+        "android_client_info": {
+          "package_name": "pj.uacnix.pointrunner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029752056323-ph301lfologhl9tsm05msom1u29dc4dk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pj.uacnix.pointrunner",
+            "certificate_hash": "3d7289b35812c7f4b64ce7bbb2b315535a54c6de"
+          }
+        },
+        {
+          "client_id": "1029752056323-mcu8lspvrn0fibrq7hiahhl215nftdod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfhb3EFiNApH7R9D-f1rZ3ucb6KaZUDmo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029752056323-mcu8lspvrn0fibrq7hiahhl215nftdod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
