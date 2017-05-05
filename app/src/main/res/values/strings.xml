@@ -19,4 +19,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="labelTitleLogin">PointRunner</string>
+    <string name="action_register">Sign up</string>
 </resources>
