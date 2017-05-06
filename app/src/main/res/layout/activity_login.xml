@@ -77,15 +77,15 @@
 
             <Button
                 android:id="@+id/loginButton"
-                style="?android:textAppearanceSmall"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in_short"
-                android:textStyle="bold" />
+                android:text="@string/action_sign_in_short" />
 
             <Button
                 android:id="@+id/regButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_register" />
