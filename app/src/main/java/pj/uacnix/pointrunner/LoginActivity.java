@@ -29,7 +29,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -66,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private Button loginButton,registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
+                    registerButton.setEnabled(false);
                     Log.d("AUTH:", "onAuthStateChanged:signed_in:" + user.getUid());
 
                 } else {
@@ -102,15 +107,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // ...
             }
         };
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        registerButton = (Button) findViewById(R.id.regButton);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -127,7 +131,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
     private void createAccount(){};
+
+    private void signIn(){
+        String email = mEmailView.getText().toString();
+        String pwd = mPasswordView.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, pwd)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d("LOGIN", "signInWithEmail:onComplete:" + task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w("LOGIN", "signInWithEmail:failed", task.getException());
+                            Toast.makeText(LoginActivity.this, R.string.login_fuckup,
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
