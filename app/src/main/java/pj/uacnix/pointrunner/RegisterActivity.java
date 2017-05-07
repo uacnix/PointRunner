@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "User created",
                                 Toast.LENGTH_SHORT).show();
                         if (!task.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, R.string.login_fuckup,
+                            Toast.makeText(RegisterActivity.this, "Problem creating account",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
