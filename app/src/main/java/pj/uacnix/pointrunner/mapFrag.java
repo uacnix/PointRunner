@@ -21,7 +21,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
@@ -49,20 +48,15 @@ public class mapFrag extends Fragment implements com.google.android.gms.location
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
-
         mMapView = (MapView) rootView.findViewById(R.id.mapV);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume(); // needed to get the map to display immediately
-
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         mMapView.getMapAsync(this);
-
         return rootView;
     }
 
@@ -122,17 +116,7 @@ public class mapFrag extends Fragment implements com.google.android.gms.location
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-
-        //Place current location marker
-//        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(latLng);
-//        markerOptions.title("");
-//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-//        mCurrLocationMarker = gMap.addMarker(markerOptions);
-
-//        move map camera
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),30));
+        //gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),30));
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -212,8 +196,8 @@ public class mapFrag extends Fragment implements com.google.android.gms.location
         Toast.makeText(getContext(),"Long map click", Toast.LENGTH_SHORT).show();
         final double lat = point.latitude;
         final double lng = point.longitude;
-        new AlertDialog.Builder(getContext()).setTitle("Add new Task?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(getContext(),R.style.ALERTDIALOG).setTitle("Add new Task?")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent assignmentAdder = new Intent(getContext(), AssignmentAdder.class);
                         assignmentAdder.putExtra("lat", lat);
@@ -221,7 +205,7 @@ public class mapFrag extends Fragment implements com.google.android.gms.location
                         startActivity(assignmentAdder);
                     }
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         return;
                     }

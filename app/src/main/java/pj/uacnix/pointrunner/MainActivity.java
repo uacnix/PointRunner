@@ -26,29 +26,13 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private TextView de,du;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    updateUI(user);
-                } else {
-                    // User is signed out
-//                    Toast.makeText(MainActivity.this,"User is signed out", Toast.LENGTH_SHORT).show();
-//                    Intent regActivity = new Intent(getApplicationContext(), LoginActivity.class);
-//                    startActivity(regActivity);
-                }
-                // ...
-            }
-        };
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,17 +53,36 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header = navigationView.getHeaderView(0);
+        du = (TextView) header.findViewById(R.id.drawer_username);
+        de = (TextView) header.findViewById(R.id.drawer_email);
 
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Toast.makeText(MainActivity.this,"User LOGGED OUT", Toast.LENGTH_SHORT).show();
+                    updateUI();
+                } else {
+                    Toast.makeText(MainActivity.this,"User LOGGED OUT", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        updateUI();
         mapFrag def = new mapFrag();
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.mainFrame, def);
         tx.commit();
     }
 
-    private void updateUI(FirebaseUser user) {
-        TextView de = (TextView)findViewById(R.id.drawer_email);
+    private void updateUI() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         de.setText(user.getEmail());
+        du.setText(user.getEmail().replaceAll("@.*",""));
     }
 
     @Override

@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#457ab1"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:theme="@style/AppTheme.NoActionBar"
+    app:layout_collapseParallaxMultiplier="1.0"
     app:layout_scrollFlags="scroll"
     tools:context="pj.uacnix.pointrunner.AssignmentAdder">
 
@@ -14,5 +21,79 @@
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
+    <ScrollView
+        android:id="@+id/assignmentForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/assignmentAdder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/asgA_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add new assigment:"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp" />
+
+            <EditText
+                android:id="@+id/asgA_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:text="Name" />
+
+            <EditText
+                android:id="@+id/asgA_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                tools:text="Description" />
+
+            <EditText
+                android:id="@+id/asgA_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                tools:text="Points" />
+
+            <Button
+                android:id="@+id/asgA_buttonStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set start" />
+
+            <Button
+                android:id="@+id/asgA_buttonEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set Finish" />
+
+            <EditText
+                android:id="@+id/asgA_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberSigned"
+                tools:text="Maximum number of people" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

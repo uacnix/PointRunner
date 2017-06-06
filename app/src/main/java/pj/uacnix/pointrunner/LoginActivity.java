@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                loginButton.setEnabled(false);
                 signIn();
             }
         });
@@ -114,10 +115,12 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, R.string.login_fuckup,
                                     Toast.LENGTH_SHORT).show();
                         }else{
-                            Toast.makeText(LoginActivity.this,"User login successful", Toast.LENGTH_SHORT).show();
-                            Intent regActivity = new Intent(getApplicationContext(), MainActivity.class);
+                       //     Toast.makeText(LoginActivity.this,"User login successful", Toast.LENGTH_SHORT).show();
+
+                            Intent main = new Intent(getApplicationContext(), MainActivity.class);
                             //finish();
-                            startActivity(regActivity);
+                            startActivity(main);
+                            loginButton.setEnabled(true);
                         }
                     }
                 });
