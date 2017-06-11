@@ -41,14 +41,25 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
         mAuth = FirebaseAuth.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                boolean test= false;
                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-                    registerButton.setEnabled(false);
-                    Log.d("AUTH:", "onAuthStateChanged:signed_in:" + user.getUid());
+                    try {
+                        mEmailView.setText(user.getEmail());
+                    }catch (Exception e){
+                        mEmailView.setText("bollox");
+                        test=true;
+                    }
+                    if(!test) {
+                        registerButton.setEnabled(false);
+                        Log.d("AUTH:", "onAuthStateChanged:signed_in:" + user.getUid());
+                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(main);
+                    }
 
                 } else {
                     // User is signed out
@@ -75,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
     }
 
     @Override
@@ -117,9 +129,9 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                        //     Toast.makeText(LoginActivity.this,"User login successful", Toast.LENGTH_SHORT).show();
 
-                            Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                            //finish();
-                            startActivity(main);
+//                            Intent main = new Intent(getApplicationContext(), MainActivity.class);
+//                            //finish();
+//                            startActivity(main);
                             loginButton.setEnabled(true);
                         }
                     }

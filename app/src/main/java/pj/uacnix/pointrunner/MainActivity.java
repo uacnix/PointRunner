@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -65,7 +62,7 @@ public class MainActivity extends AppCompatActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Toast.makeText(MainActivity.this,"User LOGGED OUT", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"User LOGGED IN", Toast.LENGTH_SHORT).show();
                     updateUI();
                 } else {
                     Toast.makeText(MainActivity.this,"User LOGGED OUT", Toast.LENGTH_SHORT).show();
@@ -81,8 +78,12 @@ public class MainActivity extends AppCompatActivity
 
     private void updateUI() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        de.setText(user.getEmail());
-        du.setText(user.getEmail().replaceAll("@.*",""));
+        if(user!=null) {
+            de.setText(user.getEmail());
+            du.setText(user.getEmail().replaceAll("@.*", ""));
+        }else{
+            de.setText("USER IS NULL");
+        }
     }
 
     @Override
