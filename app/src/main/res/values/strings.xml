@@ -32,4 +32,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="labelAssignmentAdder">Create new assignment</string>
+    <string name="prompt_asgnName">Name</string>
+    <string name="prompt_asgnDescr">Description</string>
+    <string name="asgnHintDistance">Maximum distance per user (meters)</string>
+    <string name="asgnMaxUsersHint">Maximum relays</string>
+    <string name="labelAsgnAdd">Add</string>
+    <string name="set_start">Set start</string>
+    <string name="set_finish">Set finish</string>
 </resources>

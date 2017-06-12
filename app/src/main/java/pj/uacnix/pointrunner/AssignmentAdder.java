@@ -17,8 +17,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -93,20 +98,36 @@ public class AssignmentAdder extends AppCompatActivity {
 
     private void addPlace() {
         Assignment asg;
-        if(startChosen && endChosen)
-            asg = new Assignment(getText(asgAname),getText(asgAdescription), start.getLatLng().latitude, start.getLatLng().longitude,end.getLatLng().latitude,end.getLatLng().longitude,getInt(asgApoints),getInt(asgApeople),getInt(asgAdistance));
-        else{
-            Toast.makeText(AssignmentAdder.this,"Either start or end not selected",Toast.LENGTH_LONG).show();
-            return;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null) {
+            if (startChosen && endChosen)
+                asg = new Assignment(getText(asgAname), getText(asgAdescription), start.getLatLng().latitude, start.getLatLng().longitude, end.getLatLng().latitude, end.getLatLng().longitude, getInt(asgApoints), getInt(asgApeople), getInt(asgAdistance), user);
+            else {
+                Toast.makeText(AssignmentAdder.this, "Either start or end not selected", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(endChosen) {
+                asgAbuttonEnd.setText("Lat:"+start.getLatLng().latitude+" Lng:"+start.getLatLng().longitude);
+            }
+            if(startChosen) {
+                asgAbuttonStart.setText("Lat:" + end.getLatLng().latitude + " Lng:" + end.getLatLng().longitude);
+            }
+            String key = db.child("assignments").push().getKey();
+            Map<String,Object> asgnVals = asg.toMap();
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/assignments/" + key, asgnVals);
+            childUpdates.put("/user-assignments/" + user.getUid() + "/" + key, asgnVals);
+            db.updateChildren(childUpdates);
+            Toast.makeText(this,"Assignment added",Toast.LENGTH_SHORT).show();
+            finish();
         }
-       // db.
-
     }
 
     private void pickPlace() {
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
         try {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
