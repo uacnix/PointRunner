@@ -5,7 +5,7 @@
     android:padding="6dip" >
 
     <TextView
-        android:id="@+id/secondLine"
+        android:id="@+id/item_asgnDesc"
         android:layout_width="fill_parent"
         android:layout_height="26dip"
         android:layout_alignParentBottom="true"
@@ -17,13 +17,12 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/asgnTitle"
+        android:id="@+id/item_asgnTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
+        android:layout_above="@id/item_asgnDesc"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/icon"
         android:layout_toStartOf="@+id/imageView2"
         android:gravity="center_vertical"
         android:text="Title"
